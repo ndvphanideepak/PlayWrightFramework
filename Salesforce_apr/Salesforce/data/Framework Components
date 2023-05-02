@@ -1,0 +1,52 @@
+Framework Components!
+
+Programming Language: Java
+UI Automation Library: Playwright
+Test Runner: TestNG
+Reporting: Extent Reports 
+Test data: Excel/Faker
+Thread Safety: Threadlocal
+Build tool: Maven
+
+Design Patterns: Pattern Object model (<- Page Object Model), Abstract Factory!
+
+
+/src/main
+  -/java - All your java code (that is likely to go to production or dependency to any other project)
+  -/resources - Non Java code that are likely to support your java code 
+
+/src/test
+ -/java - All testing specific code(project specific)
+ -/resources - Non Java code that are likely to support your test java code 
+
+Framework Physical structure:
+
+/src/main/resources
+	- app.properties: Application specific configurations
+	- grid.properties: Selenium Grid configurations
+	- local.properties: All configs to manage your tests
+	- report.properties: Report specific configurations
+
+/src/main/java
+	- config - Implementation to read key-value pair using owner 
+	- data - to fetch random data for project[faker]
+	- enum - All your constants of your framework 
+	- ui.base
+		-DriverFactory - Create browser engine through playwright
+		-Playwright Wrapper - Wrapper methods on top of playwright base code 
+			- exception handling
+			- reporting
+		-ProjectHooks - Using TestNg Annotations, we call default framework functions and logically we can arrange this 
+	- ui.utility
+        - DataLibrary : Read data from excel and pass to DP [Apache POI]
+        - MediaEntityBuilder : Override behaviour Extent Reports Logic
+        - Reporter : Wrapper on top of Extentreports Java implementation to support usability
+        - RetryTestcase : TestNG Listeners implementation for retry logic on failed tests
+        - TempMailer : Create temp email account, read email with specific subject / content (sharklasers)
+
+
+/src/test/java
+
+page.base - Login, dashboard page, Home 
+page.services - Module specific pages 
+tests.ui.services - Testcases for services module
